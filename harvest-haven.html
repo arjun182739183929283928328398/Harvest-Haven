@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harvest Haven</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background-color: #f5f5f5;
+    }
+    header {
+      background-color: #004d00;
+      color: white;
+      padding: 1em;
+    }
+    main {
+      margin-top: 20px;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 10px;
+    }
+    .card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      padding: 10px;
+    }
+    button {
+      padding: 8px 16px;
+      margin-top: 10px;
+      background-color: #008000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #006400;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Harvest Haven</h1>
+    <p>Your marketplace for unique seeds</p>
+  </header>
+  <main id="root"></main>
+
+  <!-- React and ReactDOM from CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Full App Code -->
+  <script type="text/babel">
+    const products = [
+      { id: 1, name: 'White Seeds', price: '$5', description: 'Pure and organic white seeds.' },
+      { id: 2, name: 'Black Seeds', price: '$6', description: 'Rich black seeds for premium growth.' },
+      { id: 3, name: 'Mixed Pack', price: '$10', description: 'A mix of black and white seeds.' },
+    ];
+
+    function App() {
+      const [cart, setCart] = React.useState([]);
+      const addToCart = (product) => {
+        setCart([...cart, product]);
+      };
+
+      return (
+        <div>
+          <h2>Shop Our Seeds</h2>
+          <div className="product-grid">
+            {products.map(product => (
+              <div key={product.id} className="card">
+                <h3>{product.name}</h3>
+                <p>{product.description}</p>
+                <p><strong>{product.price}</strong></p>
+                <button onClick={() => addToCart(product)}>Add to Cart</button>
+              </div>
+            ))}
+          </div>
+          <h3>Cart ({cart.length})</h3>
+          {cart.map((item, index) => (
+            <p key={index}>{item.name}</p>
+          ))}
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
